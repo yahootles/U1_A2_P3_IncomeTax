@@ -31,7 +31,7 @@ public class U1_A2_P3_IncomeTax {
         final double FIRST_BRACKET = 46605;
         final double SECOND_BRACKET = 93208;
         final double THIRD_BRACKET = 144489;
-        final double FOURTH_BRACKT = 205842;
+        final double FOURTH_BRACKET = 205842;
         
         //create Scanner and DecimalFormat
         Scanner keyedInput = new Scanner(System.in);
@@ -46,22 +46,50 @@ public class U1_A2_P3_IncomeTax {
         System.out.println("Enter your salary:");
         salary = keyedInput.nextInt();
         
-        if(salary > 46605){
-            incomeTax += 46605 * FIRST_TAX_RATE;
-            if(salary > 93208){
-                incomeTax += 93208 * SECOND_TAX_RATE;
-                if(salary > 144489){
-                    incomeTax += 144489 * THIRD_TAX_RATE;
-                    if(salary > 205842){
+        //calculate income teax
+        if(salary > FIRST_BRACKET){
+            
+            incomeTax += FIRST_BRACKET * FIRST_TAX_RATE;
+            
+            if(salary > SECOND_BRACKET){
+                
+                incomeTax += (SECOND_BRACKET - FIRST_BRACKET) * SECOND_TAX_RATE;
+                
+                if(salary > THIRD_BRACKET){
+                    
+                    incomeTax += (THIRD_BRACKET - SECOND_BRACKET) * THIRD_TAX_RATE;
+                    
+                    if(salary > FOURTH_BRACKET){
+                        
+                        incomeTax += (FOURTH_BRACKET - THIRD_BRACKET) * FOURTH_TAX_RATE;
+                        
+                        incomeTax += (salary - FOURTH_BRACKET) * FIFTH_TAX_RATE;
+                        
+                    }else{
+                        
+                        incomeTax += (salary - THIRD_BRACKET) * FOURTH_TAX_RATE;
                         
                     }
+                    
+                }else{
+                    
+                    incomeTax += (salary - SECOND_BRACKET) * THIRD_TAX_RATE;
+                    
                 }
+                
             }else{
-                incomeTax += (salary - 93208) * SECOND_TAX_RATE;
+                
+                incomeTax += (salary - FIRST_BRACKET) * SECOND_TAX_RATE;
+                
             }
+            
         }else{
+            
             incomeTax = salary * FIRST_TAX_RATE;
+            
         }
+        
+        System.out.println("Your income tax is: " + df.format(incomeTax));
     }
     
 }
